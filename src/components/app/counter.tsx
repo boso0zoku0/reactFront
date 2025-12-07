@@ -8,8 +8,10 @@ export default function Counter() {
   }
 
   return (
-    <button onClick={handleClick}>
+  <div className="flex items-center justify-center h-screen">
+    <button onClick={handleClick} className="w-64 p-2 border border-gray-300 rounded-md ">
       You clicked {count} times
     </button>
-  );
+  </div>
+);
 }
