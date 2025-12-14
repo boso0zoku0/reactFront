@@ -12,6 +12,15 @@
     margin: auto;
   }
 }
+
+@theme {
+  --font-poppins: Poppins, sans-serif;
+}
+
+@theme {
+     --font-weight-thick: bold;
+   }
+
 /*.logo {*/
 /*  height: 6em;*/
 /*  padding: 1.5em;*/

@@ -11,7 +11,6 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Предотвращаем перезагрузку страницы
-    console.log("Registration form submitted")
 
     try {
       const response = await axios.post(
@@ -24,6 +23,7 @@ const RegistrationForm = () => {
         }
       );
       setMessage(`Регистрация прошла успешно! ${response.data.message || ''}`);
+      // window.location.href = 'http://localhost:5173/'
     } catch (error) {
 
       let errorDetail = '';
@@ -34,10 +34,11 @@ const RegistrationForm = () => {
       }
       setMessage(`Ошибка регистрации: ${errorDetail || error.message}`);
     }
+
   };
 
   return (
-    <div className="flex items-center justify-center h-screen ">
+    <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col items-center space-y-4">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOHJNyiVkFRRlC2xZTXedtnnAJ0PqSU2Jp3A&s"
@@ -46,8 +47,9 @@ const RegistrationForm = () => {
           height="300"
           className="rounded-lg"
         />
+
         <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4">
-          <label htmlFor="username" className="text-white p-2">
+          <label htmlFor="username" className="text-white p-2 font-poppins">
             Username:
           </label>
           <input
@@ -55,9 +57,9 @@ const RegistrationForm = () => {
             id="username"
             required
             onChange={(e) => setUsername(e.target.value)}
-            className="w-64 p-2 border border-gray-300 rounded-md"
+            className="w-64 p-2 border rounded-md border-pink-700"
           />
-          <label htmlFor="password" className="text-white">
+          <label htmlFor="password" className="text-white p-2 font-poppins">
             Password:
           </label>
           <input
@@ -65,9 +67,9 @@ const RegistrationForm = () => {
             id="password"
             required
             onChange={(e) => setPassword(e.target.value)}
-            className="w-64 p-2 border border-gray-300 rounded-md"
+            className="w-64 p-2 border rounded-md border-pink-600"
           />
-          <label htmlFor="email" className="text-white">
+          <label htmlFor="email" className="text-white p-2 font-poppins">
             Email:
           </label>
           <input
@@ -75,12 +77,11 @@ const RegistrationForm = () => {
             id="email"
             required
             onChange={(e) => setEmail(e.target.value)}
-            className="w-64 p-2 border border-gray-300 rounded-md"
+            className="w-64 p-2 border rounded-md border-pink-700"
           />
           <button type="submit" className="w-64 p-2 bg-blue-500 hover:bg-indigo-600 text-white rounded-md focus:ring-3">
             Зарегистрироваться
           </button>
-          <p className="text-white">{message}</p>
         </form>
         <Link to="/" className="w-50 p-2 bg-blue-500 hover:bg-indigo-600 text-white rounded-md">
           Home
