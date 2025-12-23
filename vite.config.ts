@@ -24,4 +24,8 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    host: true,       // слушать на всех интерфейсах
+    port: 5173,       // порт внутри контейнера
+  }
 });

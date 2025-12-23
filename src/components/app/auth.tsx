@@ -20,10 +20,11 @@ const RegistrationForm = () => {
           headers: {
             'Content-Type': 'application/json', // Новый заголовок
           },
+          withCredentials: true
         }
       );
       setMessage(`Регистрация прошла успешно! ${response.data.message || ''}`);
-      // window.location.href = 'http://localhost:5173/'
+      // window.location.href = 'http://localhost:5173/games'
     } catch (error) {
 
       let errorDetail = '';
@@ -45,7 +46,7 @@ const RegistrationForm = () => {
           alt="casino"
           width="300"
           height="300"
-          className="rounded-lg"
+          className="rounded-lg md:aspect-video lg:aspect-square sm:aspect-retro"
         />
 
         <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4">

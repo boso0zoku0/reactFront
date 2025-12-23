@@ -20,6 +20,7 @@ return (
   <>
     <input
             value={text}
+
             onChange={handleChange}
             className="w-64 p-2 border rounded-md border-pink-600"
           />

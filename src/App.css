@@ -3,8 +3,10 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
+  /*margin-top: 30px;*/
   padding: 2rem;
   text-align: center;
+  font-size: large;
 }
 
 @layer base {
@@ -20,6 +22,10 @@
 @theme {
      --font-weight-thick: bold;
    }
+
+@theme {
+  --aspect-retro: 1 / 2;
+}
 
 /*.logo {*/
 /*  height: 6em;*/
