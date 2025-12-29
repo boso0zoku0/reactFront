@@ -39,7 +39,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen div">
       <div className="flex flex-col items-center space-y-4">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOHJNyiVkFRRlC2xZTXedtnnAJ0PqSU2Jp3A&s"

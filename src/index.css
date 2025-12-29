@@ -15,6 +15,21 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+.div {
+  position: relative; /* Обязательно, чтобы ::before позиционировался внутри */
+  z-index: 1; /* Добавьте, чтобы содержимое было поверх фона */
+}
+
+.div::before {
+  content: "";
+  position: absolute; /* Чтобы занимать весь блок */
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('https://cdn.goavilla.ru/image/CID_0384_fec42eeb92261671c126a661938eb558.jpg') no-repeat center/cover;
+  z-index: -1; /* Чтобы фон был позади содержимого */
+  filter: brightness(0.8); /* Регулируйте яркость */
+}
+
+
 
 /*a {*/
 /*  font-weight: 500;*/
