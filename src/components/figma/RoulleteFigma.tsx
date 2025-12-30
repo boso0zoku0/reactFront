@@ -37,7 +37,7 @@ type GamePhase = 'betting' | 'spinning' | 'result';
 
 export default function RouletteFigmaV2() {
   const [phase, setPhase] = useState<GamePhase>('betting');
-  const [timer, setTimer] = useState(30);
+  const [timer, setTimer] = useState<number | null>(null);
   const [offset, setOffset] = useState(0);
   const [winner, setWinner] = useState(null);
   const [winnerData, setWinnerData] = useState(null); // Данные победителя с бэкенда
@@ -54,16 +54,52 @@ export default function RouletteFigmaV2() {
         try {
           const response = await axios.get("http://127.0.0.1:8000/roulette/fetch/phase-control");
           setLifespanPhase(response.data);
-          console.log(response)
+          setTimer(prev => prev ? { ...prev, phase_duration: response.data.phase_duration } : null);
+
+
         } catch (err) {
           console.log("error:", err);
         }
       }
-
       fetchData();
-    }, 3000)
+    }, 5000)
     return () => clearInterval(intervalId)
   }, []);
+
+
+  // Таймер
+//   useEffect(() => {
+//   const intervalId = setInterval(() => {
+//     const now = new Date();
+//     const roundStartTime = lifespanPhase && lifespanPhase.round_start_time
+//   ? new Date(lifespanPhase.round_start_time)
+//   : null;  // или любое значение по умолчанию;
+//     const diffSeconds = (roundStartTime && roundStartTime.getTime())
+//   ? (roundStartTime.getTime() - now.getTime()) / 1000
+//   : null;
+//
+//     if (diffSeconds !== null && diffSeconds <= 1 && phase === 'betting') {
+//       setOffset(0);
+//       setTimeout(() => {
+//         spinRoulette();
+//       }, 100);
+//     }
+//   }, 1000);
+//
+//   return () => clearInterval(intervalId);
+// }, [timer, lifespanPhase?.round_start_time]);
+
+
+//
+//   useEffect(() => {
+//   const intervalId = setInterval(() => {
+//     if (typeof lifespanPhase?.phase_duration === 'number' && lifespanPhase.phase_duration >= 1) {
+//       setTimer(prev => prev - 1);
+//     }
+//   }, 1000);
+//
+//   return () => clearInterval(intervalId);
+// }, [lifespanPhase]);
 
 
   useEffect(() => {
@@ -110,28 +146,6 @@ export default function RouletteFigmaV2() {
     }
   }, [phase]);
 
-  // Таймер
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          if (phase === 'betting') {
-            // ВАЖНО: Сначала сбрасываем offset в 0
-            setOffset(0);
-            // Затем через небольшую задержку запускаем спин
-            setTimeout(() => {
-              setPhase('spinning');
-              spinRoulette();
-            }, 100);
-            return 0;
-          }
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [phase, playmates]);
 
   // Функция прокрутки рулетки
   const spinRoulette = () => {
@@ -158,8 +172,9 @@ export default function RouletteFigmaV2() {
               // Устанавливаем победителя для отображения
               setTimeout(() => {
                 setWinner(playmates[winnerIndex]);
-                setPhase('result');
-                setTimer(10);
+                // setPhase('result');
+
+
               }, 5000);
             }
           }
@@ -176,8 +191,8 @@ export default function RouletteFigmaV2() {
 
           setTimeout(() => {
             setWinner(playmates[randomIndex]);
-            setPhase('result');
-            setTimer(10);
+            // setPhase('result');
+
           }, 5000);
         });
     }, 50);
@@ -185,13 +200,13 @@ export default function RouletteFigmaV2() {
 
   // Функция для начала нового раунда
   const startNewRound = () => {
-    setPhase('betting');
+    // setPhase('betting');
     setOffset(0);
     setWinner(null);
     setWinnerData(null);
     setPlaymates([]); // Очищаем участников
     setTotalPot(0);
-    setTimer(30);
+    // setTimer(30);
 
     // Можно сразу запросить новых участников (если они уже есть)
     setTimeout(() => {
